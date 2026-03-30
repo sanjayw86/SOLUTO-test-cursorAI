@@ -1,0 +1,19 @@
+---
+description: Remind Sanjay to complete PENDING_REVIEW checklists for TC_021, TC_022, TC_032, TC_033 when those files or review work are in scope
+globs:
+  - RelatedSystem/test-cases/PENDING_REVIEW.md
+  - RelatedSystem/test-cases/TC_021.md
+  - RelatedSystem/test-cases/TC_022.md
+  - RelatedSystem/test-cases/TC_032.md
+  - RelatedSystem/test-cases/TC_033.md
+alwaysApply: false
+---
+
+# Pending review — SMS + KFS auto-reply test cases
+
+When **Sanjay** has any of these files in context, or is **closing out**, **exporting**, or **doing a final pass** on `RelatedSystem/test-cases/` documentation:
+
+1. Open or cite **`RelatedSystem/test-cases/PENDING_REVIEW.md`**.
+2. **Briefly remind** him to work through any **unchecked** items in the checklists for **TC_021**, **TC_022**, **TC_032**, and **TC_033** as applicable to the task (SMS vs ARCH KFS auto-reply).
+
+Do **not** block the whole answer on this—one short sentence or bullet is enough unless he is explicitly finishing those test cases.

@@ -1,0 +1,22 @@
+---
+description: When creating or finalising manual test cases in RelatedSystem, always ask for Automation ID and Grade
+globs: RelatedSystem/test-cases/**/*.md
+alwaysApply: false
+---
+
+# Manual Test Cases – Automation ID and Grade
+
+When the user asks to **create**, **draft**, or **finalise** a new manual test case in `RelatedSystem/test-cases/`:
+
+1. **Always ask the user** for **Automation ID** and **Grade**. Do **not** assign, guess, or use placeholder values—only the user provides these.
+
+2. **Add Automation ID and Grade to the test case** only when the user has explicitly provided them. Add after **Priority:** and before **Preconditions:**:
+   ```markdown
+   **Automation ID:** <value from user>
+   **Grade:** <value from user>
+   ```
+
+3. If the user provides test case content without Automation ID or Grade, **ask**:  
+   "Please provide the **Automation ID** and **Grade** for this test case (only you will supply these; I will not assign them)."
+
+4. **Never** invent or fill in Automation ID or Grade yourself. If the user has not given them, either ask for them or leave those fields out until the user provides the values.
