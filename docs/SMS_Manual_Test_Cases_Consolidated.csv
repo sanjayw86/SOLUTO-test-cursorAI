@@ -1,0 +1,191 @@
+"Test Case ID","Title","Scenario","Priority","Step","Action","Expected Result","Expected Result (Overall)","subscriberId","mdn","serviceEnabled","kfsServiceEnabled","appleSubscriptionEnabled","birthday","gender","brand"
+"SMS-CSV-WELCOME-001","Verify Welcome and all three messages for CSV-enrolled MDN (AU), then re-enrollment with same MDN","C00553","High","","1. Create a new SMS contract with: subscriberId (e.g. dynamic_Subscriber), MDN (e.g. dynamic_MDN), serviceEnabled=true, kfsServiceEnabled=true, appleSubscriptionEnabled=true, birthday=19700101, gender=female, brand=AU. Use unique subscriberId and MDN.
+2. Create the CSV file containing this contract/MDN in the format required by the system for enrollment.
+3. Upload the CSV file to the configured S3 bucket path used for enrollment.
+4. Wait for the enrollment job to run then wait up to ten minutes for processing to complete.
+5. In the carrier enrollment database, run: SELECT * FROM carrier_integration.message_target mt ORDER BY created_datetime DESC; Locate the row for the test MDN.
+6. In the customer contracts database, run: SELECT * FROM customer_contracts WHERE mdn = '<your_mdn>' ORDER BY created_datetime DESC LIMIT 10; Replace <your_mdn> with the MDN used in Step 1. Note the contract_id.
+7. Wait 20 seconds (20000 ms).
+8. In Titan DB, verify status SUCCESS for the contract. Run: SELECT contract_id, status, created_datetime FROM <titan_contract_status_table> WHERE contract_id = '<contract_id>' ORDER BY created_datetime DESC;
+9. In ISS DB, verify the Welcome message for the new user. Run: SELECT * FROM sms_system.message ORDER BY created_datetime DESC LIMIT 100;
+10. Wait 90 seconds (90000 ms).
+11. In Titan DB, get the message history ID for this contract. Run: SELECT * FROM titan_views.sms_system_message_realtime_view WHERE contract_id = '<contract_id>' ORDER BY created_datetime DESC LIMIT 10;
+12. In Titan DB, verify all three message requests (Welcome, Remind1, Remind2) for this contract. Run: SELECT * FROM carrier_integration.message_target WHERE contract_id = '<contract_id>' ORDER BY created_datetime DESC;
+13. Using the applicable admin or API process delete the MDN that was created in Step 1.
+14. Using the applicable process re-add the same MDN (same phone number) for SMS.
+15. Create a new CSV file containing the same MDN and the required contract fields. Upload this CSV to the S3 bucket.
+16. Wait for the enrollment job to run then wait up to ten minutes for processing.
+17. In the carrier enrollment database, run: SELECT * FROM carrier_integration.message_target mt ORDER BY created_datetime DESC;
+18. In the customer contracts database, run: SELECT * FROM customer_contracts WHERE mdn = '<same_mdn>' ORDER BY created_datetime DESC LIMIT 10; Note the contract_id.
+19. Wait 5 seconds (5000 ms).
+20. In Titan DB verify status CONTRACT_TRANSITIONED for the re-enrolled contract. Same query pattern as Step 8 with the re-enrolled contract_id.
+21. In ISS DB verify the Welcome message is delivered again for the re-enrolled user. Same query as Step 9.
+22. Wait 5 seconds (5000 ms).
+23. In Titan DB get the message history ID for the re-enrolled contract. Same query pattern as Step 11.
+24. In Titan DB verify all three message requests for the re-enrolled contract. Same query pattern as Step 12.","1. Contract data ready.
+2. CSV file created.
+3. Upload successful.
+4. Enrollment completes.
+5. New enrollment record visible for the MDN.
+6. Contract ID visible; contract_id noted.
+7. Time for downstream processing.
+8. Status = SUCCESS.
+9. Welcome message present for the contract.
+10. Time for message delivery.
+11. Message history ID obtained.
+12. All three message requests present/sent.
+13. MDN deleted.
+14. Same MDN re-added.
+15. CSV created and uploaded.
+16. Re-enrollment completes.
+17. Re-enrollment record visible.
+18. Contract ID for re-enrolled MDN visible.
+19. Time for status update.
+20. Status = CONTRACT_TRANSITIONED.
+21. Welcome message present for re-enrolled contract.
+22. Time for messages.
+23. Message history ID obtained.
+24. All three message requests present/sent.","First enrollment: SUCCESS, Welcome delivered, all three messages sent. Re-enrollment (same MDN): CONTRACT_TRANSITIONED, Welcome delivered again, all three messages sent again.","dynamic_Subscriber","dynamic_MDN","true","true","true","19700101","female","AU"
+"SMS-CSV-REMIND1-002","Verify Reminder One message is delivered to the newly subscribed user after CSV enrollment (AU).","C00554","High","","1. Create a new SMS contract with: subscriberId (e.g. dynamic_Subscriber), MDN (e.g. dynamic_MDN), serviceEnabled=true, kfsServiceEnabled=true, appleSubscriptionEnabled=true, birthday=19700101, gender=female, brand=AU. Use unique subscriberId and MDN.
+2. Create the CSV file containing this contract/MDN in the format required by the system for enrollment.
+3. Upload the CSV file to the configured S3 bucket path used for enrollment.
+4. Wait for the enrollment job to run then wait up to ten minutes for processing to complete.
+5. In the carrier enrollment database, run: SELECT * FROM carrier_integration.message_target mt ORDER BY created_datetime DESC; Locate the row for the test MDN.
+6. In the customer contracts database, run: SELECT * FROM customer_contracts WHERE mdn = '<mdn>' ORDER BY created_datetime DESC LIMIT 10; Replace <mdn> with the MDN from Step 1. Note the contract_id.
+7. Wait 90 seconds (90000 ms) to allow Reminder One to be sent.
+8. In ISS DB, verify the Reminder One message for the newly subscribed user. Run: SELECT * FROM sms_system.message ORDER BY created_datetime DESC LIMIT 100; Filter or identify the row for this contract/user and message type Reminder One.","1. Contract data ready.
+2. CSV file created.
+3. Upload successful.
+4. Enrollment completes.
+5. New enrollment record visible.
+6. Contract ID visible.
+7. Wait complete.
+8. Reminder One message delivered and visible in ISS DB.","Reminder One message is delivered to the newly subscribed user (ISS DB).","dynamic_Subscriber","dynamic_MDN","true","true","true","19700101","female","AU"
+"SMS-CSV-REMIND2-003","Verify Reminder Two message is delivered to the newly subscribed user after CSV enrollment (AU).","C00641","High","","1. Create a new SMS contract with: subscriberId (e.g. dynamic_Subscriber), MDN (e.g. dynamic_MDN), serviceEnabled=true, kfsServiceEnabled=true, appleSubscriptionEnabled=true, birthday=19700101, gender=female, brand=AU. Use unique subscriberId and MDN.
+2. Create the CSV file containing this contract/MDN in the format required by the system for enrollment.
+3. Upload the CSV file to the configured S3 bucket path used for enrollment.
+4. Wait for the enrollment job to run then wait up to ten minutes for processing to complete.
+5. In the carrier enrollment database, run: SELECT * FROM carrier_integration.message_target mt ORDER BY created_datetime DESC; Locate the row for the test MDN.
+6. In the customer contracts database, run: SELECT * FROM customer_contracts WHERE mdn = '<mdn>' ORDER BY created_datetime DESC LIMIT 10; Replace <mdn> with the MDN from Step 1. Note the contract_id.
+7. Wait 90 seconds (90000 ms) to allow Reminder Two to be sent.
+8. In ISS DB, verify the Reminder Two message for the newly subscribed user. Run: SELECT * FROM sms_system.message ORDER BY created_datetime DESC LIMIT 100; Filter or identify the row for this contract/user and message type Reminder Two.","1. Contract data ready.
+2. CSV file created.
+3. Upload successful.
+4. Enrollment completes.
+5. New enrollment record visible.
+6. Contract ID visible.
+7. Wait complete.
+8. Reminder Two message delivered and visible in ISS DB.","Reminder Two message is delivered to the newly subscribed user (ISS DB).","dynamic_Subscriber","dynamic_MDN","true","true","true","19700101","female","AU"
+"SMS-TITAN-OPENSEARCH-004","Enroll an MDN via CSV, then verify Welcome/Remind One/Remind Two SMS delivered IDs match Titan DB and contract ID appears in Titan OpenSearch Dashboard.","C00651","High","","1. Create a new SMS contract with: subscriberId (e.g. dynamic_Subscriber), MDN (e.g. dynamic_MDN), serviceEnabled=true, kfsServiceEnabled=true, appleSubscriptionEnabled=true, birthday=19700101, gender=female, brand=AU. Use unique values.
+2. Create the CSV file containing this contract/MDN and upload it to the S3 bucket.
+3. Wait for the enrollment job to run then wait up to ten minutes for processing to complete.
+4. In the carrier enrollment database, run: SELECT * FROM carrier_integration.message_target mt ORDER BY created_datetime DESC; Locate the row for the test MDN.
+5. In the customer contracts database, run: SELECT * FROM customer_contracts WHERE mdn = '<mdn>' ORDER BY created_datetime DESC LIMIT 10; Replace <mdn> with the MDN from Step 1. Note the contract_id.
+6. In Titan DB, get the SMS log data for this contract (delivered IDs for Welcome, Remind One, Remind Two). Run: SELECT * FROM titan_views.sms_system_message_realtime_view WHERE contract_id = '<contract_id>' ORDER BY created_datetime DESC LIMIT 10; Note the SMS delivered IDs.
+7. Open the web app and navigate to the Titan Open Search Dashboard application.
+8. Log in via SSO.
+9. Compare the SMS delivered IDs for Welcome, Remind One, and Remind Two from Step 6 with the logs displayed in Titan OpenSearch. Verify they match.
+10. In the Titan OpenSearch Dashboard, enter a query using the Contract Id (from Step 5) in the search text field and execute the search.
+11. Verify that the contract id appears in the logs in the Titan OpenSearch Dashboard.","1. Contract data ready.
+2. CSV created and uploaded.
+3. Enrollment completes.
+4. Enrollment record visible.
+5. Contract ID obtained.
+6. SMS delivered IDs obtained from Titan DB.
+7. On Titan OpenSearch Dashboard.
+8. Logged in.
+9. Welcome/Remind1/Remind2 delivered IDs match Titan DB SMS logs.
+10. Query executed.
+11. Contract ID is present in Titan OpenSearch logs.","Welcome/Remind One/Remind Two SMS delivered IDs match Titan DB SMS logs, and the contract ID is visible in Titan OpenSearch Dashboard.","dynamic_Subscriber","dynamic_MDN","true","true","true","19700101","female","AU"
+"SMS-HORIZON-OPENSEARCH-005","Enroll an MDN via CSV, then verify Welcome/Remind One/Remind Two SMS delivered IDs match Titan DB and Enrollment/Welcome SMS logs visible in Horizon OpenSearch Dashboard.","C00653","High","","1. Create a new SMS contract with: subscriberId (e.g. dynamic_Subscriber), MDN (e.g. dynamic_MDN), serviceEnabled=true, kfsServiceEnabled=true, appleSubscriptionEnabled=true, birthday=19700101, gender=female, brand=AU. Use unique values.
+2. Create the CSV file containing this contract/MDN and upload it to the S3 bucket.
+3. Wait for the enrollment job to run then wait up to ten minutes for processing to complete.
+4. In the carrier enrollment database, run: SELECT * FROM carrier_integration.message_target mt ORDER BY created_datetime DESC; Locate the row for the test MDN.
+5. In the customer contracts database, run: SELECT * FROM customer_contracts WHERE mdn = '<mdn>' ORDER BY created_datetime DESC LIMIT 10; Replace <mdn> with the MDN from Step 1. Note the contract_id and subscriber_id.
+6. In Titan DB, get the SMS delivered IDs for Welcome, Remind One, and Remind Two. Run: SELECT * FROM titan_views.sms_system_message_realtime_view WHERE contract_id = '<contract_id>' ORDER BY created_datetime DESC LIMIT 10;
+7. Open the web app and navigate to the Horizon Open Search Dashboard application.
+8. Log in via SSO.
+9. Verify that the SMS delivered IDs for Welcome, Remind One, and Remind Two match the Titan DB SMS logs (from Step 6).
+10. In the Horizon OpenSearch Dashboard, enter a query using the Subscriber Id (from Step 5) in the search text field and execute the search.
+11. Verify that Enrollment / Welcome SMS logs are visible in the Horizon OpenSearch Dashboard.","1. Contract data ready.
+2. CSV created and uploaded.
+3. Enrollment completes.
+4. Enrollment record visible.
+5. Contract ID and subscriber ID obtained.
+6. Delivered IDs obtained from Titan DB.
+7. On Horizon OpenSearch Dashboard.
+8. Logged in.
+9. IDs match Titan DB.
+10. Query executed.
+11. Enrollment/Welcome SMS logs visible in Horizon dashboard.","Welcome/Remind One/Remind Two delivered IDs match Titan DB, and Enrollment/Welcome SMS logs are visible in Horizon OpenSearch Dashboard.","dynamic_Subscriber","dynamic_MDN","true","true","true","19700101","female","AU"
+"SMS-CALL-RESERVE-009","Verify Call reservation confirmation SMS is sent after reserving a time slot (unprovisioned MDN, AU).","C00557","High","","1. Create a SMS new contract with: subscriberId (e.g. dynamic_Subscriber), MDN (e.g. dynamic_MDN), serviceEnabled=false, kfsServiceEnabled=true, appleSubscriptionEnabled=true, birthday=19700101, gender=female, brand=AU. Use unique subscriberId and MDN. This represents an unprovisioned MDN for call reservation.
+2. Using the system's call reservation flow (UI or API) reserve a time slot with this new MDN for call reservation.
+3. Wait 10 seconds (10000 ms).
+4. Verify that Call reservation SMS transmission is completed. In ISS DB run: SELECT * FROM sms_system.message ORDER BY created_datetime DESC LIMIT 100; Identify the Call reservation confirmation SMS for this MDN/contract.","1. Contract/MDN created.
+2. Time slot reserved.
+3. Time for SMS to be sent.
+4. Call reservation confirmation SMS sent and verifiable.","Call reservation confirmation SMS transmission is completed.","dynamic_Subscriber","dynamic_MDN","false","true","true","19700101","female","AU"
+"SMS-CALL-REMIND-010","Verify Call reservation reminder SMS is sent after reserving a time slot (unprovisioned MDN, AU).","C00558","High","","1. Create a SMS new contract with: subscriberId (e.g. dynamic_Subscriber), MDN (e.g. dynamic_MDN), serviceEnabled=false, kfsServiceEnabled=true, appleSubscriptionEnabled=true, birthday=19700101, gender=female, brand=AU. Use unique subscriberId and MDN.
+2. Using the system's call reservation flow reserve a time slot with this new MDN for call reservation.
+3. Wait 35 seconds (35000 ms) to allow the reminder SMS to be sent.
+4. Verify Call reminder SMS transmission is completed. In ISS DB run: SELECT * FROM sms_system.message ORDER BY created_datetime DESC LIMIT 100; Identify the Call reservation reminder SMS for this MDN/contract.","1. Contract/MDN created.
+2. Time slot reserved.
+3. Wait complete.
+4. Call reminder SMS sent and verifiable.","Call reservation reminder SMS transmission is completed.","dynamic_Subscriber","dynamic_MDN","false","true","true","19700101","female","AU"
+"SMS-CALL-CANCEL-011","Verify Call cancellation SMS is sent after cancelling a call reservation (unprovisioned MDN, AU).","C00559","High","","1. Create a SMS new contract with: subscriberId (e.g. dynamic_Subscriber), MDN (e.g. dynamic_MDN), serviceEnabled=false, kfsServiceEnabled=true, appleSubscriptionEnabled=true, birthday=19700101, gender=female, brand=AU. Use unique subscriberId and MDN.
+2. Using the system's call reservation flow reserve a time slot with this new MDN for call reservation.
+3. Wait 45 seconds (45000 ms).
+4. Using the system's cancel flow (UI or API) cancel the call reservation for this MDN.
+5. Wait 45 seconds (45000 ms) for the cancellation SMS to be sent.
+6. Verify Call cancellation SMS transmission is completed. In ISS DB run: SELECT * FROM sms_system.message ORDER BY created_datetime DESC LIMIT 100; Identify the Call cancellation SMS for this MDN/contract.","1. Contract/MDN created.
+2. Time slot reserved.
+3. Time before cancel.
+4. Reservation cancelled.
+5. Wait complete.
+6. Call cancellation SMS sent and verifiable.","Call cancellation SMS transmission is completed.","dynamic_Subscriber","dynamic_MDN","false","true","true","19700101","female","AU"
+"SMS-CALL-NOT-SENT-PROVISIONED-012","Verify Call reservation SMS is not sent when the user is provisioned as auNonSubscriber (AU).","C00664","High","","1. Create a SMS new contract with: subscriberId (e.g. dynamic_Subscriber), MDN (e.g. dynamic_MDN), serviceEnabled=false, kfsServiceEnabled=true, appleSubscriptionEnabled=true, birthday=19700101, gender=female, brand=AU. Use unique subscriberId and MDN.
+2. Using the project's provisioning process provision the user as new auNonSubscriber for this MDN.
+3. Using the system's call reservation flow reserve a time slot with this new MDN for call reservation.
+4. Wait 35 seconds (35000 ms).
+5. Verify that Call reservation SMS is not sent to this provisioned user. In ISS DB run: SELECT * FROM sms_system.message ORDER BY created_datetime DESC LIMIT 100; Confirm there is no Call reservation SMS for this MDN/contract.","1. Contract/MDN created.
+2. User provisioned as auNonSubscriber.
+3. Time slot reserved.
+4. Time for SMS window.
+5. Call reservation SMS is not sent to the provisioned user.","Call reservation SMS is not sent to the provisioned user.","dynamic_Subscriber","dynamic_MDN","false","true","true","19700101","female","AU"
+"SMS-MANUAL-DELIVERY-015","With Manual delivery ON (isNormalOperationMode=false), enroll via CSV, verify SMS in TO_BE_PROCESSED, approve re-delivery, then verify DELIVERED in Titan and Welcome in ISS.","C10000","High","","1. Call the isNormalOperationMode endpoint and set the value to ""false"" in the JSON body.
+2. Verify that manual delivery mode of SMS is ON when isNormalOperationMode is ""false"" (per project verification step).
+3. Create a SMS new contract with: subscriberId (e.g. dynamic_Subscriber), MDN (e.g. dynamic_MDN), serviceEnabled=true, kfsServiceEnabled=true, appleSubscriptionEnabled=true, birthday=19700101, gender=female, brand=AU. Use unique values.
+4. Create the CSV file containing this contract/MDN and upload it to the S3 bucket.
+5. Wait for the enrollment job to run then wait up to ten minutes for processing to complete.
+6. In the carrier enrollment database, run: SELECT * FROM carrier_integration.message_target mt ORDER BY created_datetime DESC; Locate the row for the test MDN.
+7. In the customer contracts database, run: SELECT * FROM customer_contracts WHERE mdn = '<mdn>' ORDER BY created_datetime DESC LIMIT 10; Replace <mdn> with the MDN from Step 3. Note the contract_id.
+8. Wait 40 seconds (40000 ms).
+9. In Titan DB, for case ""1"", verify status SUCCESS for the enrolled contract. Run: SELECT contract_id, status, created_datetime FROM <titan_contract_status_table> WHERE contract_id = '<contract_id>' ORDER BY created_datetime DESC;
+10. In ISS DB, verify that Welcome, Remind One, and Remind Two are not delivered yet (manual mode). Run: SELECT * FROM sms_system.message ORDER BY created_datetime DESC LIMIT 100;
+11. In Titan DB, verify that all three SMS delivered logs have status TO_BE_PROCESSED. Use the project's Titan SMS delivery status table or view.
+12. Check for duplicate logs in Titan DB (run the project's duplicate-check query for Titan).
+13. Check for duplicate logs using a GET request to the issMock endpoint (use the project's URL and parameters).
+14. Send a POST request to the endpoint that approves re-delivery so that all three SMS delivered status will be updated and reflected in ISS DB.
+15. Wait 40 seconds (40000 ms).
+16. In Titan DB, verify that all three SMS delivered logs have status DELIVERED. Use the same Titan SMS delivery status table or view as in Step 11.
+17. Wait 10 seconds (10000 ms).
+18. In ISS DB, verify the Welcome message is delivered to the newly subscribed user. Run: SELECT * FROM sms_system.message ORDER BY created_datetime DESC LIMIT 100; Identify the Welcome message for the contract from Step 7.
+19. Call the isNormalOperationMode endpoint and set the value to ""true"" in the JSON body to restore normal operation.","1. Request accepted; Manual delivery ON.
+2. Manual delivery mode = ON.
+3. Contract data ready.
+4. CSV created and uploaded.
+5. Enrollment completes.
+6. Enrollment record visible.
+7. Contract ID visible.
+8. Processing time.
+9. Status = SUCCESS.
+10. No Welcome/Remind1/Remind2 in ISS.
+11. All three SMS in TO_BE_PROCESSED.
+12. No duplicate logs.
+13. No duplicates in issMock.
+14. Re-delivery approved.
+15. Processing time.
+16. All three SMS = DELIVERED.
+17. Processing time.
+18. Welcome message visible in ISS DB.
+19. Normal operation restored.","With Manual delivery ON: SMS in TO_BE_PROCESSED; after re-delivery approval, all three show DELIVERED in Titan and Welcome is delivered in ISS. No duplicate logs; isNormalOperationMode set back to true.","dynamic_Subscriber","dynamic_MDN","true","true","true","19700101","female","AU"

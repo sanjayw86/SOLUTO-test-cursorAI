@@ -20,3 +20,5 @@ When the user asks to **create**, **draft**, or **finalise** a new manual test c
    "Please provide the **Automation ID** and **Grade** for this test case (only you will supply these; I will not assign them)."
 
 4. **Never** invent or fill in Automation ID or Grade yourself. If the user has not given them, either ask for them or leave those fields out until the user provides the values.
+
+5. **KFS notifications (TC_034 push, TC_035 snack bar):** Do **not** create or keep `DRAFT_ARCH_KFS_Notification_Push_notification.md` or `DRAFT_ARCH_KFS_Notification_Snack_bar.md` after finalisation unless **Sanjay explicitly asks**. Other `DRAFT_*` pointers follow **`RelatedSystem/test-cases/README.md`** (e.g. KFS auto-reply au/UQ pointers to **TC_032** / **TC_033**).

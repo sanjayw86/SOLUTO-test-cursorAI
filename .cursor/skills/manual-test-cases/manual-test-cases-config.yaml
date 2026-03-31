@@ -1,0 +1,66 @@
+# Manual Test Cases - Configuration & Template
+# Use this file with SKILL.md when generating manual test cases.
+# Paths are relative to this skill folder for portability.
+
+skill:
+  name: manual-test-cases
+  description: Generate structured manual test cases from features, user stories, or requirements.
+  reference_files:
+    skill: "SKILL.md"
+    config: "manual-test-cases-config.yaml"
+
+# Where to save generated test cases (use one; agent uses default_output_path if user does not specify)
+storage:
+  default_output_path: "./test-cases"
+  default_filename: "manual-test-cases"
+  extensions:
+    - ".md"
+    - ".yaml"
+
+# Test case structure - use these fields in order when generating
+template:
+  fields:
+    - id: "Test Case ID"
+      format: "[MODULE]-[NUMBER]"
+      example: "AUTH-001"
+    - id: "Test Case Title"
+      format: "Short, action-oriented title"
+    - id: "Priority"
+      allowed_values: ["High", "Medium", "Low"]
+    - id: "Preconditions"
+      format: "Required state, data, or setup"
+    - id: "Test Steps"
+      format: "Table with Step | Action | Expected Result"
+    - id: "Test Data"
+      format: "Optional; key-value or list"
+    - id: "Postconditions"
+      format: "State after test, cleanup if needed"
+
+# ID convention
+conventions:
+  id_prefix: ""          # e.g. "PROJ" for PROJ-AUTH-001
+  id_module_examples:
+    - AUTH
+    - CHECKOUT
+    - PROFILE
+    - REGISTRATION
+  id_number_format: "001"  # Zero-padded 3 digits
+
+# Coverage types to include by default
+coverage:
+  positive: true
+  negative: true
+  edge_cases: true
+  ui_checks: false
+
+# Example scenarios (reference for agent)
+examples:
+  login:
+    valid:
+      title: "Successful login with valid credentials"
+      priority: "High"
+      module: "AUTH"
+    invalid:
+      title: "Login fails with invalid credentials"
+      priority: "High"
+      module: "AUTH"
