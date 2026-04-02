@@ -59,4 +59,4 @@ Keep the reminder **short** unless he is explicitly doing that review pass.
 
 ---
 
-*Section A: historically promoted from `DRAFT_SMS_Manual_Delivery_Titan_ISS.md` and `DRAFT_SMS_Duplicate_Alert_AutoStop.md`. Section B: formal cases [TC_032](./TC_032.md) / [TC_033](./TC_033.md); pointers [DRAFT_ARCH_KFS_Automatic_reply_au.md](./DRAFT_ARCH_KFS_Automatic_reply_au.md) and [DRAFT_ARCH_KFS_Automatic_reply_UQ.md](./DRAFT_ARCH_KFS_Automatic_reply_UQ.md); live auto-reply validation pending when time allows.*
+*Section A: historically promoted from `DRAFT_SMS_Manual_Delivery_Titan_ISS.md` and `DRAFT_SMS_Duplicate_Alert_AutoStop.md`. Section B: formal cases [TC_032](./TC_032.md) / [TC_033](./TC_033.md); live auto-reply validation pending when time allows.*
