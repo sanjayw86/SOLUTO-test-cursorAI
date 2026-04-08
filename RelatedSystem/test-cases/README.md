@@ -49,11 +49,15 @@
 | 39 | Denodo event log — `bookmark_by_button` when bookmarking with `Save article` button | [TC_039](./TC_039.md) |
 | 40 | Denodo event log — `open_route_by_freq_asked` from `よくあるお問い合わせ` list | [TC_040](./TC_040.md) |
 | 41 | Firebase / BigQuery — Provisioning flow `logger_debug` / `ScreenViewed` by scope | [TC_041](./TC_041.md) |
+| 42 | Firebase / BigQuery — Notification permission `Accepted` (provisioning pop-up) | [TC_042](./TC_042.md) |
+| 43 | Firebase / BigQuery — Notification permission `Rejected` (provisioning pop-up) | [TC_043](./TC_043.md) |
+| 44 | CC Tool / Shop Tool / mobile — Call reserve & cancel (both sides sync) | [TC_044](./TC_044.md) |
+| 45 | CC Tool — Call reservation reminder push (1 hour before) | [TC_045](./TC_045.md) |
 
 ---
 
-**Pending your review (Sanjay):** [PENDING_REVIEW.md](./PENDING_REVIEW.md) — **Automation ID** / **Grade** set (**TC_021:** C10000, D; **TC_022:** SMS_TEMP_001, D); remaining checklist items as needed. **TC_023:** C00129, D; **TC_024:** C00131, D; **TC_025:** C00163, D; **TC_026:** C00322, D; **TC_027:** C00323, D; **TC_028:** C00077, D; **TC_029:** C00101, D; **TC_030:** C00239, D; **TC_031:** C00628, D; **TC_032:** C00629, D; **TC_033:** C00630, D; **TC_034:** C00631, D; **TC_035:** C00632, D; **TC_037:** ARCH_TEMP_002, D; **TC_038:** C00644, C; **TC_039:** C00645a, C; **TC_040:** C00646, C; **TC_041:** C00633, D (Firebase).
+**Pending your review (Sanjay):** [PENDING_REVIEW.md](./PENDING_REVIEW.md) — **Automation ID** / **Grade** set (**TC_021:** C10000, D; **TC_022:** SMS_TEMP_001, D); remaining checklist items as needed. **TC_023:** C00129, D; **TC_024:** C00131, D; **TC_025:** C00163, D; **TC_026:** C00322, D; **TC_027:** C00323, D; **TC_028:** C00077, D; **TC_029:** C00101, D; **TC_030:** C00239, D; **TC_031:** C00628, D; **TC_032:** C00629, D; **TC_033:** C00630, D; **TC_034:** C00631, D; **TC_035:** C00632, D; **TC_037:** ARCH_TEMP_002, D; **TC_038:** C00644, C; **TC_039:** C00645a, C; **TC_040:** C00646, C; **TC_041:** C00633, D; **TC_042:** C00634, D; **TC_043:** C00636, D; **TC_044:** C00092, D (CC Tool). **TC_045:** C00096, D (CC Tool — reminder push).
 
-**Adding more test cases:** Create `TC_042.md`, … in this folder and add a row above for each. For each new test case, provide **Automation ID** (e.g. C00549) and **Grade** (e.g. D) so they can be included in the document.
+**Adding more test cases:** Create `TC_046.md`, … in this folder and add a row above for each. For each new test case, provide **Automation ID** (e.g. C00549) and **Grade** (e.g. D) so they can be included in the document.
 
 **Drafts:** When Sanjay asks for a **draft** only, create or edit a `DRAFT_*.md` file — do **not** create `TC_NNN.md` until he asks to **finalize**. Edit formal `TC_NNN.md` after promotion. **KFS push** (**TC_034**) and **KFS snack bar** (**TC_035**): no companion `DRAFT_ARCH_KFS_Notification_*` files unless Sanjay asks for one. **Pointers (entry points):** [DRAFT_SMS_Manual_Delivery_Titan_ISS.md](./DRAFT_SMS_Manual_Delivery_Titan_ISS.md), [DRAFT_SMS_Duplicate_Alert_AutoStop.md](./DRAFT_SMS_Duplicate_Alert_AutoStop.md) → **TC_021** / **TC_022**. **KFS snack bar** is finalised as **TC_035** — no companion draft unless Sanjay asks. Update this README when that list changes.
